@@ -69,7 +69,7 @@
                         </tr>
                     </table>
                 <?php } ?>
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped table-sm">
                         <thead class="bg-secondary text-center">
                             <tr>
                                 <th width="5%">NO</th>

@@ -1,8 +1,9 @@
 <html>
 <head>
-<title>Cetak Slip Tabungan</title>
+<title>Cetak Riwayat Tabungan</title>
 <style type="text/css">
-    @page {
+    @page 
+    {
         margin-top: 40px; 
         margin-bottom: 70px; 
     }
@@ -16,7 +17,7 @@
 <body>
 <table width="100%" cellspacing="0" cellpadding="2"> 
     <tr>
-        <td width="10%"><img src="<?= base_url('assets/img/logo_komite.png'); ?>" width="90"></td>
+        <td width="10%"><img src="assets/img/logo_komite.png" width="90"></td>
         <td align="center" width="80%"><b>KOMITE MADRASAH<br>MADRASAH ALIYAH NEGERI 3 KEBUMEN</b><br>
             Jalan Pencil No. 47 Kutowinangun Telp. 0287-661119 Kode Pos 54313             
         </td>
@@ -30,12 +31,7 @@
         </td>
     </tr>
 </table>
-<br><center><b>SLIP TABUNGAN <br>Tanggal <?php  $tanggal = substr($tgl,8,2);
-                                                $bulan = substr($tgl,5,2);
-                                                $tahun = substr($tgl,0,4);
-                                                echo $tanggal.' '.getBulan($bulan).' '.$tahun;
-                                          ?>
-</b></center>
+<br><center><b>RIWAYAT TABUNGAN</b></center>
 <br>
 <table width="100%" cellspacing="0" cellpadding="2">
     <tr>
@@ -67,7 +63,6 @@
         </td>
     </tr>
 </table>
-<br>
 <table cellspacing="0" cellpadding="3" width="100%" border="1">
     <thead style="background-color: #ccc">
         <tr>
@@ -106,12 +101,8 @@
         <?php } ?>
     </tbody>
 </table>
-<table style="width:800px; margin-top:5px; margin-bottom:20px;">
-    <tr>
-        <td></td>
-    </tr>
-</table>
-<table cellspacing="0" cellpadding="3" width="100%" style="margin-top:5px; margin-bottom:20px;">
+<br>
+<table cellspacing="0" cellpadding="3" width="100%">
     <tr>
         <td width="40%"><br></td>
         <td width="20%"></td>
@@ -133,7 +124,7 @@
                 $ttd = ttd($this->session->userdata('id_user'));
                 if( !empty($ttd) AND file_exists("assets/img/ttd/$ttd") )
                 { 
-                    echo'<img src="'.base_url("assets/img/ttd/$ttd").'" width="70">
+                    echo'<img src="assets/img/ttd/'.$ttd.'" width="70">
                         <br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
                 }else
                 {
@@ -149,6 +140,3 @@
         </td>
     </tr>
 </table>
-<script>
-    window.print();
-</script>

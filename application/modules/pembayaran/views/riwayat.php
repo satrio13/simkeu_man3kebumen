@@ -33,7 +33,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <a href="<?= base_url(); ?>backend/cetak-riwayat/<?= $siswa->nis; ?>" class="btn btn-dark btn-flat border-white" target="_blank"><i class="fa fa-print"></i> CETAK <b></b></a>
+                        <a href="<?= base_url(); ?>backend/cetak-riwayat/<?= $siswa->nis; ?>" class="btn btn-danger btn-flat border-white" target="_blank"><i class="fa fa-print"></i> CETAK<b></b></a>
+                        <a href="<?= base_url(); ?>backend/cetak-riwayat-pdf/<?= $siswa->nis; ?>" class="btn btn-dark btn-flat border-white" target="_blank"><i class="fa fa-print"></i> CETAK PDF<b></b></a>
                     </div>
                 </div>
             </div>
@@ -44,13 +45,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-striped" id="datatable">
+                        <table class="table table-bordered table-striped table-sm" id="datatable">
                             <thead class="bg-secondary text-center">
                                 <tr>
                                     <th width="5%" nowrap>NO</th>
                                     <th nowrap>TANGGAL</th>
                                     <th nowrap>JUMLAH SETORAN</th>
                                     <th nowrap>GUNA MEMBAYAR</th>
+                                    <th nowrap>KETERANGAN</th>
                                     <th nowrap>PETUGAS</th>
                                     <th width="15%" nowrap>AKSI</th>
                                 </tr>
@@ -109,9 +111,17 @@
                                     <td><?= date('d-m-Y H:i:s', strtotime($r->tgl)); ?></td>
                                     <td class="text-right"><?= number_format($r->bayar, 0, ',', '.'); ?></td>
                                     <td><?= $keterangan; ?></td>
+                                    <td><?= $r->catatan; ?></td>
                                     <td><?= $r->nama_petugas; ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url(); ?>backend/cetak-slip/<?= $r->id_pembayaran; ?>" target="_blank" class="btn btn-dark btn-sm btn-flat border-white text-bold"><i class="fa fa-print"></i> CETAK SLIP</a>
+                                        <div class="btn-group mr-1" role="group">
+                                            <button type="button" class="btn btn-primary btn-xs btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-print"></i> CETAK</button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="<?= base_url(); ?>backend/cetak-slip-pdf/<?= $r->id_pembayaran; ?>" target="_blank">Cetak PDF</a>
+                                                <a class="dropdown-item" href="<?= base_url(); ?>backend/cetak-slip/<?= $r->id_pembayaran; ?>" target="_blank">Cetak Biasa</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -1,13 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Import_guru_model extends CI_Model {
-	public function view(){
-		return $this->db->get('tb_guru')->result(); // Tampilkan semua data yang ada di tabel siswa
+class Import_guru_model extends CI_Model 
+{
+	public function view()
+	{
+		return $this->db->get('tb_guru')->result(); 
 	}
 	
-	// Fungsi untuk melakukan proses upload file
-	public function upload_file($filename){
-		$this->load->library('upload'); // Load librari upload
+	public function upload_file($filename)
+	{
+		$this->load->library('upload'); 
 		
 		$config['upload_path'] = './excel/guru/';
 		$config['allowed_types'] = 'xlsx';
@@ -15,20 +16,19 @@ class Import_guru_model extends CI_Model {
 		$config['overwrite'] = true;
 		$config['file_name'] = $filename;
 	
-		$this->upload->initialize($config); // Load konfigurasi uploadnya
-		if($this->upload->do_upload('file')){ // Lakukan upload dan Cek jika proses upload berhasil
-			// Jika berhasil :
-			$return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
-			return $return;
-		}else{
-			// Jika gagal :
-			$return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
-			return $return;
+		$this->upload->initialize($config);
+		if($this->upload->do_upload('file'))
+		{ 
+			return array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
+		}else
+		{
+			return array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
 		}
 	}
 	
-	// Buat sebuah fungsi untuk melakukan insert lebih dari 1 data
-	public function insert_multiple($data){
+	public function insert_multiple($data)
+	{
 		$this->db->insert_batch('tb_guru', $data);
 	}
+	
 }

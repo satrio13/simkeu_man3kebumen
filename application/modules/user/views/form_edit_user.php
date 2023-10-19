@@ -1,4 +1,20 @@
-<!-- Content Wrapper. Contains page content -->
+<?php
+if(isset($_POST['submit']))
+{
+  $nama = $this->input->post('nama', TRUE);
+  $nip = $this->input->post('nip', TRUE);
+  $username = $this->input->post('username', TRUE);
+  $email = $this->input->post('email', TRUE);
+  $is_active = $this->input->post('is_active', TRUE);
+}else
+{
+  $nama = $data->nama;
+  $nip = $data->nip;
+  $username = $data->username;
+  $email = $data->email;
+  $is_active = $data->is_active;
+}
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -41,23 +57,23 @@
             <?php echo form_open_multipart('backend/edit-user/'.$this->uri->segment('3'), 'id="form-user"'); ?>
                 <div class="card-body">
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">NAMA *</label>
+                    <label class="col-sm-2 col-form-label">NAMA <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                      <input type='text' name='nama' maxlength="100" class='form-control required' placeholder='Nama' value="<?= $data->nama; ?>">
+                      <input type='text' name='nama' maxlength="100" class='form-control required' placeholder='Nama' value="<?= $nama; ?>">
                       <?php echo form_error('nama'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIP</label>
                     <div class="col-sm-5">
-                      <input type='text' name='nip' maxlength="50" class='form-control' placeholder='NIP' value="<?= $data->nip; ?>">
+                      <input type='text' name='nip' maxlength="50" class='form-control' placeholder='NIP' value="<?= $nip; ?>">
                       <?php echo form_error('nip'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">USERNAME *</label>
+                    <label class="col-sm-2 col-form-label">USERNAME <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                    <input type='text' name='username' class='form-control sepasi required' minlength="5" maxlength="30" placeholder='Username' value="<?= $data->username; ?>" autocomplete="off"><?php echo form_error('username'); ?>
+                    <input type='text' name='username' class='form-control sepasi required' minlength="5" maxlength="30" placeholder='Username' value="<?= $username; ?>" autocomplete="off"><?php echo form_error('username'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -67,13 +83,13 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">EMAIL *</label>
+                    <label class="col-sm-2 col-form-label">EMAIL <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                    <input type='email' name='email' maxlength="100" class='form-control sepasi required' placeholder='Email' value="<?= $data->email; ?>"><?php echo form_error('email'); ?>
+                    <input type='email' name='email' maxlength="100" class='form-control sepasi required' placeholder='Email' value="<?= $email; ?>"><?php echo form_error('email'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">LEVEL USER *</label>
+                    <label class="col-sm-2 col-form-label">LEVEL USER <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
                         <select name="level" class="form-control required">
                           <?php 
@@ -102,15 +118,15 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">STATUS AKTIF *</label>
+                    <label class="col-sm-2 col-form-label">STATUS AKTIF <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
                         <div class="icheck-primary d-inline">
-                            <input type="radio" name="is_active" value="1" id="radioPrimary1" <?php if($data->is_active == '1'){ ?> checked <?php } ?> required> 
+                            <input type="radio" name="is_active" value="1" id="radioPrimary1" <?php if($is_active == '1'){ ?> checked <?php } ?> required> 
                             <label for="radioPrimary1">Aktif</label> 
                             &nbsp;&nbsp;&nbsp; 
                         </div>
                         <div class="icheck-primary d-inline">
-                            <input type="radio" name="is_active" value="0" id="radioPrimary2" <?php if($data->is_active == '0'){ ?> checked <?php } ?> required> 
+                            <input type="radio" name="is_active" value="0" id="radioPrimary2" <?php if($is_active == '0'){ ?> checked <?php } ?> required> 
                             <label for="radioPrimary2">Non Aktif</label>
                         </div>
                         <br><label for="is_active" class="error"></label>
@@ -119,7 +135,7 @@
                   </div>
                   <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                       </div>
                   </div>
               </div>

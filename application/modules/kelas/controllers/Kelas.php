@@ -28,7 +28,7 @@ class Kelas extends CI_Controller {
 			$row = array();
 			$row[] = '<div class="text-center">'.$no.'.</div>';
 			$row[] = $r->kelas;
-            $row[] = '<div class="text-center">'.$r->tingkat.'.</div>';
+            $row[] = '<div class="text-center">'.$r->tingkat.'</div>';
             $row[] = $r->jurusan;
             $action = '<div class="text-center">
                         <a href="'.base_url("backend/edit-kelas/$r->id_kelas").'" 

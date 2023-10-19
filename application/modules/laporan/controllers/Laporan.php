@@ -59,7 +59,7 @@ class Laporan extends CI_Controller {
                 LEFT JOIN tb_kelas_siswa ks ON p.id_siswa=ks.id_siswa
                 LEFT JOIN tb_kelas_wali kw ON ks.id_kelas_wali=kw.id_kelas_wali
                 LEFT JOIN tb_kelas k ON kw.id_kelas=k.id_kelas
-                WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
+                WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND th.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
             }
         }
         $data['title'] = 'Laporan Riwayat';
@@ -112,7 +112,7 @@ class Laporan extends CI_Controller {
         LEFT JOIN tb_kelas_siswa ks ON p.id_siswa=ks.id_siswa
         LEFT JOIN tb_kelas_wali kw ON ks.id_kelas_wali=kw.id_kelas_wali
         LEFT JOIN tb_kelas k ON kw.id_kelas=k.id_kelas
-        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
+        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND th.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
 
         $this->load->library('pdfgenerator');
         $data['id_tahunpelajaran'] = $id_tahunpelajaran;
@@ -163,7 +163,7 @@ class Laporan extends CI_Controller {
         LEFT JOIN tb_kelas_siswa ks ON p.id_siswa=ks.id_siswa
         LEFT JOIN tb_kelas_wali kw ON ks.id_kelas_wali=kw.id_kelas_wali
         LEFT JOIN tb_kelas k ON kw.id_kelas=k.id_kelas
-        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
+        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND th.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
 
         $data['id_tahunpelajaran'] = $id_tahunpelajaran;
         $data['tingkatan'] = $tingkatan;
@@ -290,7 +290,7 @@ class Laporan extends CI_Controller {
         LEFT JOIN tb_kelas_siswa ks ON p.id_siswa=ks.id_siswa
         LEFT JOIN tb_kelas_wali kw ON ks.id_kelas_wali=kw.id_kelas_wali
         LEFT JOIN tb_kelas k ON kw.id_kelas=k.id_kelas
-        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
+        WHERE kw.id_tahunpelajaran = $id_tahunpelajaran AND th.id_tahunpelajaran = $id_tahunpelajaran AND k.tingkat $kondisi_tingkatan '$tingkatan' AND t.id_tagihan $kondisi_tagihan $id_tagihan AND DATE(p.tgl) BETWEEN '$tgl_awal' AND '$tgl_akhir' ORDER BY p.id_pembayaran DESC");
      
         $objDrawing = new PHPExcel_Worksheet_Drawing();
         $objDrawing->setName('Logo');
@@ -347,17 +347,16 @@ class Laporan extends CI_Controller {
     
         $excel->setActiveSheetIndex(0)->setCellValue('C11', ": $tgl_cari");
 
-
-
 		$excel->setActiveSheetIndex(0)->setCellValue('A13', "No"); 
 		$excel->setActiveSheetIndex(0)->setCellValue('B13', "Tanggal"); 
         $excel->setActiveSheetIndex(0)->setCellValue('C13', "Jumlah Setoran"); 
         $excel->setActiveSheetIndex(0)->setCellValue('D13', "NIS"); 
         $excel->setActiveSheetIndex(0)->setCellValue('E13', "Nama");
         $excel->setActiveSheetIndex(0)->setCellValue('F13', "Kelas"); 
-		$excel->setActiveSheetIndex(0)->setCellValue('G13', "Keterangan");
-        $excel->setActiveSheetIndex(0)->setCellValue('H13', "Petugas");
-
+		$excel->setActiveSheetIndex(0)->setCellValue('G13', "Guna Membayar");
+        $excel->setActiveSheetIndex(0)->setCellValue('H13', "Keterangan");
+        $excel->setActiveSheetIndex(0)->setCellValue('I13', "Petugas");
+        
         $excel->getActiveSheet()->getStyle('A13')->applyFromArray($style_col);
         $excel->getActiveSheet()->getStyle('B13')->applyFromArray($style_col);
         $excel->getActiveSheet()->getStyle('C13')->applyFromArray($style_col);
@@ -366,6 +365,7 @@ class Laporan extends CI_Controller {
         $excel->getActiveSheet()->getStyle('F13')->applyFromArray($style_col);
         $excel->getActiveSheet()->getStyle('G13')->applyFromArray($style_col);
         $excel->getActiveSheet()->getStyle('H13')->applyFromArray($style_col);
+        $excel->getActiveSheet()->getStyle('I13')->applyFromArray($style_col);
 
         $no = 1; 
         $numrow = 14; 
@@ -425,7 +425,8 @@ class Laporan extends CI_Controller {
             $excel->setActiveSheetIndex(0)->setCellValue('E'.$numrow, $r->nama);
             $excel->setActiveSheetIndex(0)->setCellValue('F'.$numrow, $r->kelas);
             $excel->setActiveSheetIndex(0)->setCellValue('G'.$numrow, $keterangan);
-            $excel->setActiveSheetIndex(0)->setCellValue('H'.$numrow, $r->nama_petugas);
+            $excel->setActiveSheetIndex(0)->setCellValue('H'.$numrow, $r->catatan);
+            $excel->setActiveSheetIndex(0)->setCellValue('I'.$numrow, $r->nama_petugas);
 
             $excel->getActiveSheet()->getStyle('A'.$numrow)->applyFromArray($style_isi_tengah);
             $excel->getActiveSheet()->getStyle('B'.$numrow)->applyFromArray($style_isi_kiri);
@@ -435,6 +436,7 @@ class Laporan extends CI_Controller {
 			$excel->getActiveSheet()->getStyle('F'.$numrow)->applyFromArray($style_isi_kiri);
             $excel->getActiveSheet()->getStyle('G'.$numrow)->applyFromArray($style_isi_kiri);
             $excel->getActiveSheet()->getStyle('H'.$numrow)->applyFromArray($style_isi_kiri);
+            $excel->getActiveSheet()->getStyle('I'.$numrow)->applyFromArray($style_isi_kiri);
             $no++;
             $numrow++;
         endforeach;
@@ -450,8 +452,8 @@ class Laporan extends CI_Controller {
         $excel->getActiveSheet()->getStyle('C'.$numrow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
         $excel->getActiveSheet()->getStyle('C'.$numrow)->applyFromArray($style_row);
 
-        $excel->getActiveSheet()->mergeCells('D'.$numrow.':H'.$numrow);
-        $excel->getActiveSheet()->getStyle('D'.$numrow.':H'.$numrow)->applyFromArray($style_isi_tengah);
+        $excel->getActiveSheet()->mergeCells('D'.$numrow.':I'.$numrow);
+        $excel->getActiveSheet()->getStyle('D'.$numrow.':I'.$numrow)->applyFromArray($style_isi_tengah);
 
         $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5); 
         $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
@@ -460,7 +462,8 @@ class Laporan extends CI_Controller {
 		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(40);
 		$excel->getActiveSheet()->getColumnDimension('F')->setWidth(15); 
 		$excel->getActiveSheet()->getColumnDimension('G')->setWidth(50);  
-		$excel->getActiveSheet()->getColumnDimension('H')->setWidth(40); 
+		$excel->getActiveSheet()->getColumnDimension('H')->setWidth(40);
+		$excel->getActiveSheet()->getColumnDimension('I')->setWidth(40); 
         $excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
         $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $excel->getActiveSheet(0)->setTitle("Laporan Riwayat Pembayaran");
@@ -492,7 +495,7 @@ class Laporan extends CI_Controller {
 		$this->template->admin('backend/dashboard','laporan/laporan_persiswa',$data);
     }
 
-    function cetak_laporan_persiswa($id_siswa)
+    function cetak_laporan_persiswa_pdf($id_siswa)
 	{
         $cek = $this->laporan_model->cek_siswa($id_siswa); 
 		if(!$cek)
@@ -508,9 +511,28 @@ class Laporan extends CI_Controller {
             $data['pemb_kelulusan'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>6]);
             $data['bulan'] = $this->db->select('*')->from('tb_bulan')->order_by('id_bulan','asc')->get();
             $this->load->library('pdfgenerator');
-            $html = $this->load->view('laporan/cetak_persiswa', $data, true);
+            $html = $this->load->view('laporan/cetak_persiswa_pdf', $data, true);
             $filename = 'cetak-laporan-persiswa';
             $this->pdfgenerator->generate($html, $filename, TRUE, 'A4', 'potrait');	
+        }
+    }
+
+    function cetak_laporan_persiswa($id_siswa)
+	{
+        $cek = $this->laporan_model->cek_siswa($id_siswa); 
+		if(!$cek)
+		{ 
+			show_404(); 
+        }else
+        {   
+            $data['siswa'] = siswa_sekarang($id_siswa);
+            $data['pemb_sekaliselamanya'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>1]);
+            $data['pemb_tiaptahun'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>2]);
+            $data['pemb_bulanan'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>4]);
+            $data['pemb_persiswa'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>5]);
+            $data['pemb_kelulusan'] = $this->db->get_where('tb_tagihan',['id_jenistagihan'=>6]);
+            $data['bulan'] = $this->db->select('*')->from('tb_bulan')->order_by('id_bulan','asc')->get();
+            $this->load->view('laporan/cetak_persiswa', $data);	
         }
     }
 

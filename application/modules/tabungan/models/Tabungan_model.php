@@ -19,7 +19,7 @@ class Tabungan_model extends CI_Model {
         $this->db->from($this->table);
         $this->db->join('tb_siswa s', 'd.id_siswa=s.id_siswa','left');
         $this->db->join('tb_user u', 'd.id_user=u.id_user','left');
-
+        $this->db->limit('1000');
       $i = 0;
       foreach ($this->column_search as $item) // loop column 
       {

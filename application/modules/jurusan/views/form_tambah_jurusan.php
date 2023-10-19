@@ -35,16 +35,16 @@
                 <?php echo form_open('backend/tambah-jurusan', 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">JURUSAN *</label>
+                        <label class="col-sm-2 col-form-label">JURUSAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <input type="text" name="jurusan" value="<?= set_value('jurusan'); ?>" class="form-control required" placeholder="JURUSAN">
                             <?php echo form_error('jurusan'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
-                        </div>
+                      <div class="offset-sm-2 col-sm-10">
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
+                      </div>
                     </div>
                 </div>
                 <div class="card-footer">

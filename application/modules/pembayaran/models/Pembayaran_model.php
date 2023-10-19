@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pembayaran_model extends CI_Model {
  
     private $table = 'tb_pembayaran p'; //nama tabel dari database
-    private $column_order = array(null,'p.tgl','p.bayar','s.nis','s.nama','p.id_pembayaran','p.status','u.nama','p.id_pembayaran');
-    private $column_search = array('p.tgl','p.bayar','s.nis','s.nama','p.status','u.nama');
+    private $column_order = array(null,'p.tgl','p.bayar','s.nis','s.nama','p.id_pembayaran','p.status','p.catatan','u.nama','p.id_pembayaran');
+    private $column_search = array('p.tgl','p.bayar','s.nis','s.nama','p.status','p.catatan','u.nama');
     private $order = array('p.id_pembayaran' => 'desc'); // default order 
  
     public function __construct()
@@ -22,6 +22,7 @@ class Pembayaran_model extends CI_Model {
       $this->db->join('tb_tagihan_tahunan th','p.id_tagihan_tahunan=th.id_tagihan_tahunan','left');
       $this->db->join('tb_tagihan t','th.id_tagihan=t.id_tagihan','left');
       $this->db->join('tb_user u','p.id_user=u.id_user','left');
+      $this->db->limit('1000');
       $i = 0;
       foreach ($this->column_search as $item) // loop column 
       {
@@ -75,7 +76,7 @@ class Pembayaran_model extends CI_Model {
         return $this->db->count_all_results();
     }
  
-    function bayar($id_siswa,$id_tagihan_tahunan,$id_semester,$id_bulan,$bayar,$tgl,$status,$id_user,$tabungan,$keterangan)
+    function bayar($id_siswa,$id_tagihan_tahunan,$id_semester,$id_bulan,$bayar,$tgl,$status,$id_user,$tabungan,$keterangan,$catatan)
     {
       $this->db->trans_start();
         $data = [
@@ -86,7 +87,8 @@ class Pembayaran_model extends CI_Model {
           'bayar' => $bayar,
           'tgl' => $tgl,
           'status' => $status,
-          'id_user' => $id_user   
+          'id_user' => $id_user,
+          'catatan' => $catatan    
         ];
 
         $this->db->insert('tb_pembayaran', $data);
@@ -130,7 +132,7 @@ class Pembayaran_model extends CI_Model {
 
   function riwayat($id_siswa)
   {
-    return $this->db->select('d.id_pembayaran,d.id_siswa,d.id_tagihan_tahunan,d.id_semester,d.id_bulan,d.bayar,d.tgl,d.status,d.id_user,s.nis,s.nama,t.id_tagihan,p.tagihan,u.nama AS nama_petugas')->from('tb_pembayaran d')->join('tb_siswa s','d.id_siswa=s.id_siswa','left')->join('tb_tagihan_tahunan t','d.id_tagihan_tahunan=t.id_tagihan_tahunan','left')->join('tb_tagihan p','t.id_tagihan=p.id_tagihan','left')->join('tb_user u','d.id_user=u.id_user','left')->where('d.id_siswa',$id_siswa)->order_by('d.id_pembayaran','desc')->get();
+    return $this->db->select('d.id_pembayaran,d.id_siswa,d.id_tagihan_tahunan,d.id_semester,d.id_bulan,d.bayar,d.tgl,d.status,d.id_user,s.nis,s.nama,t.id_tagihan,p.tagihan,u.nama AS nama_petugas,d.catatan')->from('tb_pembayaran d')->join('tb_siswa s','d.id_siswa=s.id_siswa','left')->join('tb_tagihan_tahunan t','d.id_tagihan_tahunan=t.id_tagihan_tahunan','left')->join('tb_tagihan p','t.id_tagihan=p.id_tagihan','left')->join('tb_user u','d.id_user=u.id_user','left')->where('d.id_siswa',$id_siswa)->order_by('d.id_pembayaran','desc')->get();
   }
 
   function slip($id_siswa,$tgl)

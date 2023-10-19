@@ -1,3 +1,12 @@
+<?php 
+if(isset($_POST['submit']))
+{ 
+  $tahunpelajaran = $this->input->post('tahunpelajaran', TRUE);
+}else
+{ 
+  $tahunpelajaran = $data->tahunpelajaran; 
+} 
+?>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -35,15 +44,15 @@
                 <?php echo form_open('backend/edit-tahun/'.$this->uri->segment('3'), 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">TAHUN PELAJARAN *</label>
+                        <label class="col-sm-2 col-form-label">TAHUN PELAJARAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" name="tahunpelajaran" maxlength="10" value="<?= $data->tahunpelajaran; ?>" class="form-control required" placeholder="TAHUN PELAJARAN">
+                            <input type="text" name="tahunpelajaran" maxlength="10" value="<?= $tahunpelajaran; ?>" class="form-control required" placeholder="TAHUN PELAJARAN">
                             <?php echo form_error('tahunpelajaran'); ?> 
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>  
+                          <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                         </div>
                     </div>
                 </div>

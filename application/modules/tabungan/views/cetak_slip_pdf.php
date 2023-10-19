@@ -1,8 +1,8 @@
 <html>
 <head>
-<title>Cetak Laporan Kekurangan Pembayaran</title>
+<title>Cetak Slip Tabungan</title>
 <style type="text/css">
-   @page {
+    @page {
         margin-top: 40px; 
         margin-bottom: 70px; 
     }
@@ -16,7 +16,7 @@
 <body>
 <table width="100%" cellspacing="0" cellpadding="2"> 
     <tr>
-        <td width="10%"><img src="<?= base_url('assets/img/logo_komite.png'); ?>" width="70"></td>
+        <td width="10%"><img src="assets/img/logo_komite.png" width="90"></td>
         <td align="center" width="80%"><b>KOMITE MADRASAH<br>MADRASAH ALIYAH NEGERI 3 KEBUMEN</b><br>
             Jalan Pencil No. 47 Kutowinangun Telp. 0287-661119 Kode Pos 54313             
         </td>
@@ -30,78 +30,80 @@
         </td>
     </tr>
 </table>
-<br><center><b>LAPORAN KEKURANGAN PEMBAYARAN</b></center>
+<br><center><b>SLIP TABUNGAN <br>Tanggal <?php  $tanggal = substr($tgl,8,2);
+                                                $bulan = substr($tgl,5,2);
+                                                $tahun = substr($tgl,0,4);
+                                                echo $tanggal.' '.getBulan($bulan).' '.$tahun;
+                                          ?>
+</b></center>
 <br>
-<table cellspacing="0" cellpadding="2">
+<table width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+        <td width="10%">
+            NAMA
+        </td>
+        <td width="45%">
+            : <?= $siswa->nama; ?>
+        </td>
+        <td width="25%">
+            TAHUN PELAJARAN
+        </td>
+        <td width="20%">
+            : <?= $siswa->tahunpelajaran; ?>
+        </td>
+    </tr>
     <tr>
         <td>
-            <b>Tahun Pelajaran</b>
+            NIS
         </td>
         <td>
-            : <?= tahun($id_tahunpelajaran); ?>
+            : <?= $siswa->nis; ?>
         </td>
         <td>
-            <b>Kelas</b>
+            KELAS
         </td>
         <td>
-            : <?= kelas($id_kelas); ?>
-        </td>
-        <td>
-            <b>Tagihan</b>
-        </td>
-        <td>
-            : <?= tagihan($id_tagihan); ?>
+            : <?= $siswa->kelas; ?>
         </td>
     </tr>
 </table>
+<br>
 <table cellspacing="0" cellpadding="3" width="100%" border="1">
     <thead style="background-color: #ccc">
         <tr>
-            <th width="5%" align="center">NO</th>
-            <th align="center">NIS</th>
-            <th align="center">NAMA</th>
-            <th align="center">TP SEKARANG</th>
-            <th align="center">KELAS SEKARANG</th>
-            <th align="center">TAGIHAN</th>
-            <th align="center">BIAYA</th>
-            <th align="center">DIBAYAR</th>
-            <th align="center">KURANG</th>
-            <th align="center">STATUS</th>
+            <th align="center" nowrap>NO</th>
+            <th align="center" nowrap>TANGGAL</th>
+            <th align="center" nowrap>JUMLAH</th>
+            <th align="center" nowrap>KETERANGAN</th>
+            <th align="center" nowrap>PETUGAS</th>
         </tr>
     </thead>
     <tbody>
-    <?php 
-    $no = 1; 
-    $biaya_akhir = 0;
-    $sudah_dibayar_akhir = 0;
-    $kurang_akhir = 0;
-    foreach($data->result() as $r):
-        if(id_jenistagihan($id_tagihan) == 1)
-        { 
-            include('lapkurangselamanya.php');
-        }elseif(id_jenistagihan($id_tagihan) == 2)
-        { 
-            include('lapkurangtahunan.php');
-        }elseif(id_jenistagihan($id_tagihan) == 3)
-        { 
-            include('lapkurangsemester.php');
-        }elseif(id_jenistagihan($id_tagihan) == 4)
-        { 
-            include('lapkurangbulanan.php');
-        }elseif(id_jenistagihan($id_tagihan) == 6)
-        { 
-            if($r->tingkat == 'XII')
-            {
-                include('lapkurangkelulusan.php');
-            }
-        }
-    endforeach; 
-    echo'<tr>
-            <td colspan="7" align="right"></td>
-            <td align="right"><b>'.number_format($biaya_akhir, 0, ',', '.').'</b></td>
-            <td align="right"><b>'.number_format($sudah_dibayar_akhir, 0, ',', '.').'</b></td>
-            <td align="right"><b>'.number_format($kurang_akhir, 0, ',', '.').'</b></td>
-        </tr>'; ?>
+        <?php 
+        if($data->num_rows() > 0)
+        {
+            $total = 0;
+            $no = 1; foreach($data->result() as $r): 
+            $total = ( ($total) + ($r->nabung) ); ?>
+            <tr>
+                <td align="center"><?= $no++; ?></td>
+                <td><?= date('d-m-Y H:i:s', strtotime($r->tgl)); ?></td>
+                <td align="right"><?= number_format($r->nabung, 0, ',', '.'); ?></td>
+                <td><?= $r->keterangan; ?></td>
+                <td><?= $r->nama_petugas; ?></td>
+            </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="2"><b>TABUNGAN</b></td>
+                <td align="right"><b><?= number_format($total, 0, ',', '.'); ?></b></td>
+                <td></td>
+                <td></td>
+            </tr>
+        <?php }else{ ?> 
+            <tr>
+                <td align="center" colspan="5">BELUM ADA RIWAYAT</td>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>
 <table style="width:800px; margin-top:5px; margin-bottom:20px;">
@@ -131,13 +133,13 @@
                 $ttd = ttd($this->session->userdata('id_user'));
                 if( !empty($ttd) AND file_exists("assets/img/ttd/$ttd") )
                 { 
-                    echo'<img src="'.base_url("assets/img/ttd/$ttd").'" width="70">
+                    echo'<img src="assets/img/ttd/'.$ttd.'" width="70">
                         <br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
                 }else
                 {
                     echo'<br><br><br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
                 }
-                
+
                 if( !empty(nip($this->session->userdata('id_user'))) )
                 {
                     echo '<br>NIP. '.nip($this->session->userdata('id_user'));
@@ -147,6 +149,3 @@
         </td>
     </tr>
 </table>
-<script>
-    window.print();
-</script>

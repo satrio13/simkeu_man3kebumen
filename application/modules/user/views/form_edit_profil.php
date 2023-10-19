@@ -1,4 +1,18 @@
-<!-- Content Wrapper. Contains page content -->
+<?php
+if(isset($_POST['submit']))
+{
+  $nama = $this->input->post('nama', TRUE);
+  $nip = $this->input->post('nip', TRUE);
+  $username = $this->input->post('username', TRUE);
+  $email = $this->input->post('email', TRUE);
+}else
+{
+  $nama = $data->nama;
+  $nip = $data->nip;
+  $username = $data->username;
+  $email = $data->email;
+}
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -40,30 +54,30 @@
             <?php echo form_open_multipart('backend/edit-profil','id="form"'); ?>
                 <div class="card-body">
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">NAMA *</label>
+                    <label class="col-sm-2 col-form-label">NAMA <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                      <input type='text' name='nama' maxlength="100" class='form-control required' placeholder='Nama' value="<?= $data->nama; ?>">
+                      <input type='text' name='nama' maxlength="100" class='form-control required' placeholder='Nama' value="<?= $nama; ?>">
                       <?php echo form_error('nama'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">NIP</label>
                     <div class="col-sm-5">
-                      <input type='text' name='nip' maxlength="30" class='form-control' placeholder='NIP' value="<?= $data->nip; ?>">
+                      <input type='text' name='nip' maxlength="30" class='form-control' placeholder='NIP' value="<?= $nip; ?>">
                       <?php echo form_error('nip'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">USERNAME *</label>
+                    <label class="col-sm-2 col-form-label">USERNAME <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                    <input type='text' name='username' class='form-control sepasi required' minlength="5" maxlength="30" placeholder='Username' value="<?= $data->username; ?>" autocomplete="off">
+                    <input type='text' name='username' class='form-control sepasi required' minlength="5" maxlength="30" placeholder='Username' value="<?= $username; ?>" autocomplete="off">
                     <?php echo form_error('username'); ?>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">EMAIL *</label>
+                    <label class="col-sm-2 col-form-label">EMAIL <span class="text-danger">*</span></label>
                     <div class="col-sm-5">
-                    <input type='email' name='email' maxlength="100" class='form-control sepasi required' placeholder='Email' value="<?= $data->email; ?>">
+                    <input type='email' name='email' maxlength="100" class='form-control sepasi required' placeholder='Email' value="<?= $email; ?>">
                     <?php echo form_error('email'); ?>
                     </div>
                   </div>
@@ -81,7 +95,7 @@
                   </div>
                   <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                          <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                       </div>
                   </div>
               </div>

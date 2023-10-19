@@ -1,3 +1,12 @@
+<?php
+if(isset($_POST['submit']))
+{
+  $nama = $this->input->post('nama', TRUE);
+}else
+{
+  $nama = $data->nama;
+}
+?>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -35,16 +44,16 @@
                 <?php echo form_open('backend/edit-guru/'.$this->uri->segment('3'), 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">NAMA *</label>
+                        <label class="col-sm-2 col-form-label">NAMA <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" name="nama" value="<?= $data->nama; ?>" class="form-control required" placeholder="NAMA">
+                            <input type="text" name="nama" value="<?= $nama; ?>" class="form-control required" placeholder="NAMA">
                             <?php echo form_error('nama'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
-                        </div>
+                      <div class="offset-sm-2 col-sm-10">
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
+                      </div>
                     </div>
                 </div>
                 <div class="card-footer">

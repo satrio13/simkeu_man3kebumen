@@ -38,7 +38,7 @@
                     <table class="table table-hover table-striped table-bordered">
                       <thead class="bg-secondary text-center">
                         <tr>
-                          <th width="10%">NO</th>
+                          <th width="5%">NO</th>
                           <th>NAMA LENGKAP *</th>
                         </tr>
                       </thead>
@@ -55,7 +55,7 @@
                         <tr>
                           <td colspan="5">
                             <button type="submit" name="submit" value="Submit" class="btn btn-info btn-flat"><i class="fa fa-check"></i> SIMPAN</button>
-                            <a href="<?= base_url(); ?>backend/guru" class="btn btn-danger btn-flat float-right"><i class="fa fa-arrow-left"></i> Batal</a>
+                            <a href="<?= base_url(); ?>backend/guru" class="btn btn-danger btn-flat float-right"><i class="fa fa-arrow-left"></i> BATAL</a>
                           </td>
                         </tr>
                       </tbody>

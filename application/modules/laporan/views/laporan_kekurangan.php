@@ -78,12 +78,12 @@
                                 <tr>
                                     <td colspan="3">
                                         <a href="<?= base_url("backend/cetak-laporan-kekurangan-pdf/$id_tahunpelajaran/$id_kelas/$id_tagihan"); ?>" target="_blank" class="btn bg-navy btn-flat"><i class="fa fa-print"></i> CETAK PDF</a>
-                                        <a href="<?= base_url("backend/cetak-laporan-kekurangan/$id_tahunpelajaran/$id_kelas/$id_tagihan"); ?>" target="_blank" class="btn bg-primary btn-flat"><i class="fa fa-print"></i> CETAK BIASA</a>
+                                        <a href="<?= base_url("backend/cetak-laporan-kekurangan/$id_tahunpelajaran/$id_kelas/$id_tagihan"); ?>" target="_blank" class="btn bg-primary btn-flat"><i class="fa fa-print"></i> CETAK</a>
                                     </td>
                                 </tr>
                             </table>
                         <?php } ?>
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped table-sm">
                                 <thead class="bg-secondary text-center">
                                     <tr>
                                         <th width="5%">NO</th>

@@ -64,13 +64,13 @@
                                 <tr>
                                     <td colspan="3">
                                         <a href="<?= base_url("backend/cetak-laporan-semua-kekurangan-pdf/$id_tahunpelajaran/$id_kelas"); ?>" target="_blank" class="btn bg-navy btn-flat"><i class="fa fa-print"></i> CETAK PDF</a>
-                                        <a href="<?= base_url("backend/cetak-laporan-semua-kekurangan/$id_tahunpelajaran/$id_kelas"); ?>" target="_blank" class="btn bg-primary btn-flat"><i class="fa fa-print"></i> CETAK BIASA</a>
+                                        <a href="<?= base_url("backend/cetak-laporan-semua-kekurangan/$id_tahunpelajaran/$id_kelas"); ?>" target="_blank" class="btn bg-primary btn-flat"><i class="fa fa-print"></i> CETAK</a>
                                         <a href="<?= base_url("backend/cetak-laporan-semua-kekurangan-excel/$id_tahunpelajaran/$id_kelas"); ?>" target="_blank" class="btn btn-flat bg-olive"><i class="fa fa-file-pdf"></i> CETAK EXCEL</a>
                                     </td>
                                 </tr>
                             </table>
                         <?php } ?>
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped table-sm">
                                 <thead class="bg-secondary text-center">
                                     <tr>
                                         <th width="5%">No</th>
@@ -114,7 +114,8 @@
                                 {
                                     if($data->num_rows() > 0)
                                     {
-                                        $no = 1; 
+                                        $no = 1;
+                                        $total_kurang = 0; 
                                         foreach($data->result() as $r):
                                             $jml_kurang = 0;
                                             echo'<tr>
@@ -130,6 +131,7 @@
                                                             $sudah_dibayar = sudah_dibayar($id_tagihan_tahunan, $r->id_siswa);
                                                             $kurang = $biaya - $sudah_dibayar;
                                                             $jml_kurang = $jml_kurang + $kurang;
+                                                            $total_kurang = $total_kurang + $jml_kurang;
                                                             echo'<td align="right">'.number_format($kurang, 0, ',', '.').'</td>';
                                                         }
                                                     endforeach;
@@ -143,6 +145,7 @@
                                                             $sudah_dibayar = sudah_dibayar($id_tagihan_tahunan, $r->id_siswa);
                                                             $kurang = $biaya - $sudah_dibayar;
                                                             $jml_kurang = $jml_kurang + $kurang;
+                                                            $total_kurang = $total_kurang + $jml_kurang;
                                                             echo'<td align="right">'.number_format($kurang, 0, ',', '.').'</td>';
                                                         }
                                                     endforeach;
@@ -166,6 +169,7 @@
                                                                 endforeach;
                                                                 $kurang = $biaya_hasil - $sudah_dibayar_hasil;
                                                                 $jml_kurang = $jml_kurang + $kurang;
+                                                                $total_kurang = $total_kurang + $jml_kurang;
                                                                 echo'<td align="right">'.number_format($kurang, 0, ',', '.').'</td>';   
                                                             }
                                                         }
@@ -182,7 +186,8 @@
                                                                 $sudah_dibayar = sudah_dibayar($id_tagihan_tahunan, $r->id_siswa);
                                                                 $kurang = $biaya - $sudah_dibayar;
                                                                 $jml_kurang = $jml_kurang + $kurang;
-                                                            echo'<td align="right">'.number_format($kurang, 0, ',', '.').'</td>';
+                                                                $total_kurang = $total_kurang + $jml_kurang;
+                                                                echo'<td align="right">'.number_format($kurang, 0, ',', '.').'</td>';
                                                             }
                                                         endforeach;
                                                     }
@@ -190,6 +195,9 @@
                                                     echo'<td align="right">'.number_format($jml_kurang, 0, ',', '.').'</td>';
                                             echo'</tr>';
                                         endforeach;
+                                        echo'<tr>
+                                                <td align="right">'.number_format($total_kurang, 0, ',', '.').'</td>
+                                            </tr>';
                                     }else 
                                     {
                                         echo'<tr>

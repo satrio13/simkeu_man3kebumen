@@ -73,9 +73,10 @@
                 <label class="mt-2 float-right"><i class="fa fa-book"></i></label>
                 <div class="row">
                     <div class="col-md-12 bg-light">
-                        <a href="<?= base_url("backend/cetak-riwayat-tabungan/$siswa->nis"); ?>" class="btn bg-olive btn-flat float-right m-1 text-bold" target="_blank"><span class="text-white"><i class="fa fa-print"></i> CETAK RIWAYAT TABUNGAN</span></a>
+                        <a href="<?= base_url("backend/cetak-riwayat-tabungan/$siswa->nis"); ?>" class="btn bg-info btn-flat float-right m-1 text-bold" target="_blank"><span class="text-white"><i class="fa fa-print"></i> CETAK RIWAYAT TABUNGAN</span></a>
+                        <a href="<?= base_url("backend/cetak-riwayat-tabungan-pdf/$siswa->nis"); ?>" class="btn bg-navy btn-flat float-right m-1 text-bold" target="_blank"><span class="text-white"><i class="fa fa-print"></i> CETAK RIWAYAT TABUNGAN PDF</span></a>
                         <div class="table table-responsive mt-2">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped table-sm">
                                 <thead class="bg-dark text-center">
                                     <tr>
                                         <th width="5%">NO</th>
@@ -103,10 +104,17 @@
                                             <td>'.$r->keterangan.'</td>
                                             <td>'.$r->nama_petugas.'</td>
                                             <td class="text-center" nowrap>
-                                                <a href="'.base_url("backend/cetak-slip-tabungan/$r->id_tabungan").'" target="_blank" class="btn btn-primary btn-sm btn-flat border-white text-bold"><i class="fa fa-print"></i></a> ';
+                                                <div class="btn-group mr-1" role="group">
+                                                    <button type="button" class="btn btn-primary btn-xs btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-print"></i> CETAK</button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="'.base_url("backend/cetak-slip-tabungan-pdf/$r->id_tabungan").'" target="_blank">Cetak PDF</a>
+                                                        <a class="dropdown-item" href="'.base_url("backend/cetak-slip-tabungan/$r->id_tabungan").'" target="_blank">Cetak Biasa</a>
+                                                    </div>
+                                                </div>';
                                                 if( ($this->session->userdata('id_user') == $r->id_user) AND ($r->keterangan == 'Menabung') AND ($id_tabungan_terakhir == $r->id_tabungan) AND ($r->hapus == 'Y') )
                                                 { 
-                                                    echo'<a href="javascript:void(0)" class="btn btn-danger btn-sm btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-tabungan/$r->id_tabungan/$siswa->nis").'" title="HAPUS DATA"><i class="fa fa-trash"></i></a>';  
+                                                    echo'<a href="javascript:void(0)" class="btn btn-danger btn-xs btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-tabungan/$r->id_tabungan/$siswa->nis").'" title="HAPUS DATA"><i class="fa fa-trash"></i> HAPUS</a>';  
                                                 } 
                                                 ?>
                                             </td>
@@ -136,7 +144,7 @@
     </section>
 </div>
 
-<div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">

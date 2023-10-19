@@ -1,3 +1,12 @@
+<?php
+if(isset($_POST['submit']))
+{
+  $jurusan = $this->input->post('jurusan', TRUE);
+}else
+{
+  $jurusan = $data->jurusan;
+}
+?>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -35,16 +44,16 @@
                 <?php echo form_open('backend/edit-jurusan/'.$this->uri->segment('3'), 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">JURUSAN *</label>
+                        <label class="col-sm-2 col-form-label">JURUSAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" name="jurusan" value="<?= $data->jurusan; ?>" class="form-control required" placeholder="JURUSAN">
+                            <input type="text" name="jurusan" value="<?= $jurusan; ?>" class="form-control required" placeholder="JURUSAN">
                             <?php echo form_error('jurusan'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
-                        </div>
+                      <div class="offset-sm-2 col-sm-10">
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
+                      </div>
                     </div>
                 </div>
                 <div class="card-footer">

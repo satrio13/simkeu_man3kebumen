@@ -38,7 +38,7 @@
                     <table class="table table-hover table-striped table-bordered">
                       <thead class="bg-secondary text-center">
                         <tr>
-                          <th width="10%">NO</th>
+                          <th width="5%">NO</th>
                           <th>NAMA LENGKAP *</th>
                           <th>NIS *</th>
                         </tr>

@@ -39,7 +39,7 @@
                         <?php }else{ ?>
                             File Sekarang: <img class='img-responsive mb-2' id='preview_gambar' width='150px' src="<?= base_url(); ?>assets/img/ttd/<?= $data->ttd; ?>">
                         <?php } ?>
-                        <input type='file' class='form-control' name='ttd' onchange='readURL(this);' required>
+                        <input type='file' class='form-control' name='ttd' accept='image/png, image/jpeg' onchange='readURL(this);' required>
                         <p style="color: red"> *) format file JPG/PNG ukuran maksimal 1 MB</p>
                         </div>
                     </div>

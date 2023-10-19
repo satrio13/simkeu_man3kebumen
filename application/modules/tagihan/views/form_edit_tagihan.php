@@ -1,3 +1,14 @@
+<?php
+if(isset($_POST['submit']))
+{
+  $tagihan = $this->input->post('tagihan', TRUE);
+  $id_jenistagihan = $this->input->post('id_jenistagihan', TRUE);
+}else
+{
+  $tagihan = $data->tagihan;
+  $id_jenistagihan = $data->id_jenistagihan;
+}
+?>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -35,18 +46,18 @@
                 <?php echo form_open('backend/edit-tagihan/'.$this->uri->segment('3'), 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">NAMA TAGIHAN *</label>
+                        <label class="col-sm-2 col-form-label">NAMA TAGIHAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" name="tagihan" value="<?= $data->tagihan; ?>" maxlength="30" class="form-control required" placeholder="NAMA TAGIHAN">
+                            <input type="text" name="tagihan" value="<?= $tagihan; ?>" maxlength="30" class="form-control required" placeholder="NAMA TAGIHAN">
                             <?php echo form_error('tagihan'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">JENIS TAGIHAN *</label>
+                        <label class="col-sm-2 col-form-label">JENIS TAGIHAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_jenistagihan" class="form-control required">
                                 <?php foreach($jenistagihan as $r): ?>
-                                    <option value="<?= $r->id_jenistagihan; ?>" <?php if($data->id_jenistagihan == $r->id_jenistagihan){ echo'selected'; } ?> ><?= $r->jenistagihan; ?></option>
+                                    <option value="<?= $r->id_jenistagihan; ?>" <?php if($id_jenistagihan == $r->id_jenistagihan){ echo'selected'; } ?> ><?= $r->jenistagihan; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?php echo form_error('id_tagihan'); ?>
@@ -54,7 +65,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
+                          <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                         </div>
                     </div>
                 </div>

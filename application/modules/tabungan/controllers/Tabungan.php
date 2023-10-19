@@ -40,8 +40,8 @@ class Tabungan extends CI_Controller {
 					$cek_status_tabungan = cek_status_tabungan($r->id_tabungan);
 					if($cek_status_tabungan == 'Menabung')
 					{
-						$hapus = '<a href="javascript:void(0)" class="btn btn-danger btn-sm 
-						btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-tabungan/$r->id_tabungan").'" title="HAPUS DATA"><i class="fa fa-trash"></i></a>'
+						$hapus = '<a href="javascript:void(0)" class="btn btn-danger btn-xs 
+						btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-tabungan/$r->id_tabungan").'" title="HAPUS DATA"><i class="fa fa-trash"></i> HAPUS</a>'
 						;
 					}else
 					{
@@ -56,7 +56,14 @@ class Tabungan extends CI_Controller {
 				$hapus = '';
 			} 
 
-			$cetak = '<a href="'.base_url("backend/cetak-slip-tabungan/$r->id_tabungan").'" target="_blank" class="btn btn-primary btn-sm btn-flat border-white text-bold"><i class="fa fa-print"></i></a>';
+			$cetak = '<div class="btn-group" role="group">
+						<button type="button" class="btn btn-primary btn-xs btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<i class="fa fa-print"></i> CETAK</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="'.base_url("backend/cetak-slip-tabungan-pdf/$r->id_tabungan").'" target="_blank">Cetak PDF</a>
+							<a class="dropdown-item" href="'.base_url("backend/cetak-slip-tabungan/$r->id_tabungan").'" target="_blank">Cetak Biasa</a>
+						</div>
+					</div>';
 
 			$no++;
 			$row = array();
@@ -155,7 +162,7 @@ class Tabungan extends CI_Controller {
 		}
 	}
 
-	function cetak_riwayat_tabungan($nis)
+	function cetak_riwayat_tabungan_pdf($nis)
 	{
 		$cek = $this->tabungan_model->cek_nis($nis);
 		if(!$cek)
@@ -168,13 +175,29 @@ class Tabungan extends CI_Controller {
 			$data['siswa'] = siswa_sekarang($id_siswa);
 			$data['data'] = $this->tabungan_model->riwayat_tabungan($id_siswa);
 			$this->load->library('pdfgenerator');
-			$html = $this->load->view('tabungan/cetak_riwayat', $data, true);
+			$html = $this->load->view('tabungan/cetak_riwayat_pdf', $data, true);
 			$filename = 'cetak-riwayat-tabungan';
 			$this->pdfgenerator->generate($html, $filename, TRUE, 'A4', 'portrait');
 		}	
 	}
 
-	function cetak_slip_tabungan($id)
+	function cetak_riwayat_tabungan($nis)
+	{
+		$cek = $this->tabungan_model->cek_nis($nis);
+		if(!$cek)
+		{
+			show_404();
+		}else
+		{
+			$id_siswa = nis_to_id($nis);
+			$data['siswa'] = siswa_sekarang($id_siswa);
+			$data['data'] = $this->tabungan_model->riwayat_tabungan($id_siswa);
+			$this->load->library('pdfgenerator');
+			$this->load->view('tabungan/cetak_riwayat', $data);
+		}	
+	}
+
+	function cetak_slip_tabungan_pdf($id)
 	{
 		$cek = $this->tabungan_model->cek_tabungan($id);
 		if(!$cek)
@@ -188,9 +211,26 @@ class Tabungan extends CI_Controller {
 			$data['siswa'] = siswa_sekarang($id_siswa);
 			$data['tgl'] = $tgl;
 			$data['data'] = $this->tabungan_model->slip_tabungan($id_siswa,$tgl);
-			$html = $this->load->view('tabungan/cetak_slip', $data, true);
+			$html = $this->load->view('tabungan/cetak_slip_pdf', $data, true);
 			$filename = 'cetak-slip-tabungan';
 			$this->pdfgenerator->generate($html, $filename, TRUE, 'A4', 'portrait');	
+		}
+	}
+
+	function cetak_slip_tabungan($id)
+	{
+		$cek = $this->tabungan_model->cek_tabungan($id);
+		if(!$cek)
+		{
+			show_404();
+		}else
+		{
+			$id_siswa = id_siswa_tabungan($id);
+			$tgl = tgl_tabungan($id);
+			$data['siswa'] = siswa_sekarang($id_siswa);
+			$data['tgl'] = $tgl;
+			$data['data'] = $this->tabungan_model->slip_tabungan($id_siswa,$tgl);
+			$this->load->view('tabungan/cetak_slip', $data);
 		}
 	}
 

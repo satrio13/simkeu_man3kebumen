@@ -45,8 +45,9 @@
                 </div>
                 <div class="card-body">
                     <h3 class="text-center"><?= strtoupper($title); ?></h3>
+                    <h5 class="text-center">(1000 Transaksi Terakhir)</h5>
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-striped" id="table-tabungan">
+                        <table class="table table-bordered table-striped table-sm" id="table-tabungan">
                             <thead class="bg-secondary text-center">
                             <tr>
                                 <th width="5%">NO</th>
@@ -70,7 +71,7 @@
 </section>
 </div>
 
-<div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">

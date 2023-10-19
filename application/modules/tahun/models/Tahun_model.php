@@ -54,14 +54,22 @@ class Tahun_model extends CI_Model
 
     function hapus_tahun($id_tahunpelajaran)
     {   
-        $this->db->where('id_tahunpelajaran',$id_tahunpelajaran)->delete('tb_tahunpelajaran');
-        if($this->db->affected_rows() > 0)
-        {
-            $this->session->set_flashdata('msg-tahun', 'DATA BERHASIL DIHAPUS');
-        }
-        else
+        $cek_1 = $this->db->select('id_tahunpelajaran')->from('tb_kelas_wali')->where('id_tahunpelajaran',$id_tahunpelajaran)->get()->num_rows();
+        $cek_2 = $this->db->select('id_tahunpelajaran')->from('tb_tagihan_tahunan')->where('id_tahunpelajaran',$id_tahunpelajaran)->get()->num_rows();
+        if( ($cek_1 > 0) OR ($cek_2 > 0) )
         {
             $this->session->set_flashdata('msg-gagal-tahun', 'DATA GAGAL DIHAPUS!');
+        }else
+        {
+            $this->db->where('id_tahunpelajaran',$id_tahunpelajaran)->delete('tb_tahunpelajaran');
+            if($this->db->affected_rows() > 0)
+            {
+                $this->session->set_flashdata('msg-tahun', 'DATA BERHASIL DIHAPUS');
+            }
+            else
+            {
+                $this->session->set_flashdata('msg-gagal-tahun', 'DATA GAGAL DIHAPUS!');
+            }
         }
         redirect('backend/tahun');
     }

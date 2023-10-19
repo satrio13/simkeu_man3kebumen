@@ -80,6 +80,12 @@ foreach($siswa_smt as $k):
               <div class="col-md-8 mt-2">
                 : <input type="number" name="daritabungan" min="0" max="<?= tabungan($siswa->id_siswa); ?>" onkeypress="return hanyaAngka(event)" class="col-md-10">
               </div>
+              <div class="col-md-4 mt-2">
+                Keterangan
+              </div>
+              <div class="col-md-8 mt-2 d-flex align-item-top">
+                : <textarea name="keterangan" cols="30" class="ml-1"></textarea>
+              </div>
               <div class="col-md-4 mb-2 mt-2">
                   
               </div>

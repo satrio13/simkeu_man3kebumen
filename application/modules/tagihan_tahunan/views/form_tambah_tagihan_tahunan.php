@@ -35,7 +35,7 @@
                 <?php echo form_open('backend/tambah-tagihan-tahunan','id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">TAHUN PELAJARAN *</label>
+                        <label class="col-sm-3 col-form-label">TAHUN PELAJARAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_tahunpelajaran" class="form-control required">
                                 <?php foreach($tahunpelajaran as $r): ?>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">TAGIHAN *</label>
+                        <label class="col-sm-3 col-form-label">TAGIHAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_tagihan" class="form-control required" id="id_tagihan">
                                 <?php foreach($tagihan as $r): ?>
@@ -64,7 +64,7 @@
                         echo'style="display: none;"';
                       } ?>
                       id="id_semester">
-                        <label class="col-sm-3 col-form-label">SEMESTER *</label>
+                        <label class="col-sm-3 col-form-label">SEMESTER <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_semester" class="form-control">
                               <?php foreach($semester as $r): ?>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-10">
-                          <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>  
+                          <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                         </div>
                     </div>
                 </div>

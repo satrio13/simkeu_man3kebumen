@@ -1,3 +1,16 @@
+<?php
+if(isset($_POST['submit']))
+{
+  $kelas = $this->input->post('kelas', TRUE);
+  $tingkat = $this->input->post('tingkat', TRUE);
+  $id_jurusan = $this->input->post('id_jurusan', TRUE);
+}else
+{
+  $kelas = $data->kelas;
+  $tingkat = $data->tingkat;
+  $id_jurusan = $data->id_jurusan;
+}
+?>
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -35,38 +48,38 @@
                 <?php echo form_open('backend/edit-kelas/'.$this->uri->segment('3'), 'id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">KELAS *</label>
+                        <label class="col-sm-2 col-form-label">KELAS <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
-                            <input type="text" name="kelas" value="<?= $data->kelas; ?>" class="form-control required" placeholder="KELAS">
+                            <input type="text" name="kelas" value="<?= $kelas; ?>" class="form-control required" placeholder="KELAS">
                             <?php echo form_error('kelas'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">TINGKAT *</label>
+                        <label class="col-sm-2 col-form-label">TINGKAT <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="tingkat" class="form-control required">
-                                <option value="X" <?php if($data->tingkat == 'X'){ echo'selected'; } ?> >X</option>
-                                <option value="XI" <?php if($data->tingkat == 'XI'){ echo'selected'; } ?> >XI</option>
-                                <option value="XII" <?php if($data->tingkat == 'XII'){ echo'selected'; } ?> >XII</option>
+                                <option value="X" <?php if($tingkat == 'X'){ echo'selected'; } ?> >X</option>
+                                <option value="XI" <?php if($tingkat == 'XI'){ echo'selected'; } ?> >XI</option>
+                                <option value="XII" <?php if($tingkat == 'XII'){ echo'selected'; } ?> >XII</option>
                             </select>
                             <?php echo form_error('tingkat'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">JURUSAN *</label>
+                        <label class="col-sm-2 col-form-label">JURUSAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_jurusan" class="form-control required">
                                 <?php foreach($jurusan as $r): ?>
-                                    <option value="<?= $r->id_jurusan; ?>" <?php if($data->id_jurusan == $r->id_jurusan){ echo'selected'; } ?> ><?= $r->jurusan; ?></option>
+                                    <option value="<?= $r->id_jurusan; ?>" <?php if($id_jurusan == $r->id_jurusan){ echo'selected'; } ?> ><?= $r->jurusan; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?php echo form_error('id_jurusan'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
-                        </div>
+                      <div class="offset-sm-2 col-sm-10">
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
+                      </div>
                     </div>
                 </div>
                 <div class="card-footer">

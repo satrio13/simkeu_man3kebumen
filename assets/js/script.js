@@ -1,49 +1,5 @@
-//start
-function readURL(input)
-{
-	// Mulai membaca inputan gambar
-	if(input.files && input.files[0])
-	{
-		var reader = new FileReader(); // Membuat variabel reader untuk API FileReader
-		reader.onload = function (e)
-		{
-			// Mulai pembacaan file
-			$("#preview_gambar") // Tampilkan gambar yang dibaca ke area id #preview_gambar
-				.attr("src", e.target.result);
-			//.width(300); // Menentukan lebar gambar preview (dalam pixel)
-			//.height(200); // Jika ingin menentukan lebar gambar silahkan aktifkan perintah pada baris ini
-		};
-		reader.readAsDataURL(input.files[0]);
-	}
-}
-//end
-
-//start
-function VerifyUploadSizeIsOK()
-{
-  	var UploadFieldID = "file-upload";
-  	var MaxSizeInBytes = 1048576;
-  	var fld = document.getElementById(UploadFieldID);
-  	if( fld.files && fld.files.length == 1 && fld.files[0].size > MaxSizeInBytes )
-  	{
-    	setTimeout(function () { 
-			swal({
-				position: 'top-end',
-				icon: 'error',
-				title: 'Ukuran gambar/foto terlalu besar!!',
-				showConfirmButton: false,
-				timer: 5000
-			});
-		},2000); 
-    	window.setTimeout(function(){ 
-    	} ,5000);
-    	return false;
-  	}
-  	return true;
-} 
-// end 
-
 //dom ready
+var table;
 $(document).ready(function () 
 {
 	//start
@@ -136,7 +92,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-kelas").DataTable({
 		processing: true,
 		serverSide: true,
@@ -157,7 +112,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-guru").DataTable({
 		processing: true,
 		serverSide: true,
@@ -178,7 +132,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-kelas-wali").DataTable({
 		processing: true,
 		serverSide: true,
@@ -199,7 +152,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-siswa").DataTable({
 		processing: true,
 		serverSide: true,
@@ -220,7 +172,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-transaksi-semester").DataTable({
 		processing: true,
 		serverSide: true,
@@ -241,7 +192,6 @@ $(document).ready(function ()
 	//end
 	
 	//start
-	var table;
 	table = $("#table-tagihan-tahunan").DataTable({
 		processing: true,
 		serverSide: true,
@@ -262,7 +212,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-pembayaran").DataTable({
 		processing: true,
 		serverSide: true,
@@ -283,7 +232,6 @@ $(document).ready(function ()
 	//end
 
 	//start
-	var table;
 	table = $("#table-tabungan").DataTable({
 		processing: true,
 		serverSide: true,
@@ -304,3 +252,64 @@ $(document).ready(function ()
 	//end	
 });
 //end dom
+
+//start
+function readURL(input)
+{
+	// Mulai membaca inputan gambar
+	if(input.files && input.files[0])
+	{
+		var reader = new FileReader(); // Membuat variabel reader untuk API FileReader
+		reader.onload = function (e)
+		{
+			// Mulai pembacaan file
+			$("#preview_gambar") // Tampilkan gambar yang dibaca ke area id #preview_gambar
+				.attr("src", e.target.result);
+			//.width(300); // Menentukan lebar gambar preview (dalam pixel)
+			//.height(200); // Jika ingin menentukan lebar gambar silahkan aktifkan perintah pada baris ini
+		};
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+//end
+
+//start
+function VerifyUploadSizeIsOK()
+{
+  	var UploadFieldID = "file-upload";
+  	var MaxSizeInBytes = 1048576;
+  	var fld = document.getElementById(UploadFieldID);
+  	if( fld.files && fld.files.length == 1 && fld.files[0].size > MaxSizeInBytes )
+  	{
+    	setTimeout(function () { 
+			swal({
+				position: 'top-end',
+				icon: 'error',
+				title: 'Ukuran gambar/foto terlalu besar!!',
+				showConfirmButton: false,
+				timer: 5000
+			});
+		},2000); 
+    	window.setTimeout(function(){ 
+    	} ,5000);
+    	return false;
+  	}
+  	return true;
+} 
+// end 
+
+// fungsi ketika user men scroll ke bawah 20 px maka tombol back to top akan muncul
+window.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+    if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    }else{
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// fungsi ketika user meng klik tombol back to top maka halaman akan menscroll ke atas
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}

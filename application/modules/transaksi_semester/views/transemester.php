@@ -105,7 +105,7 @@
                 <div class="card-body">
                     <h3 class="text-center">PILIH SISWA</h3>
                     <div class="table table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-sm">
                             <thead class="bg-secondary text-center">
                             <tr>
                                 <th width="5%" nowrap>NO</th>

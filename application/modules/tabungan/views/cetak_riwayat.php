@@ -12,18 +12,12 @@
         font-size: 11pt; 
         font-family: arial; 
     }
-
-    footer
-    {
-        height: 50px;
-        margin-bottom: -50px;
-    }
 </style>
 </head>
 <body>
 <table width="100%" cellspacing="0" cellpadding="2"> 
     <tr>
-        <td width="10%"><img src="assets/img/logo_komite.png" width="90"></td>
+        <td width="10%"><img src="<?= base_url('assets/img/logo_komite.png'); ?>" width="90"></td>
         <td align="center" width="80%"><b>KOMITE MADRASAH<br>MADRASAH ALIYAH NEGERI 3 KEBUMEN</b><br>
             Jalan Pencil No. 47 Kutowinangun Telp. 0287-661119 Kode Pos 54313             
         </td>
@@ -108,43 +102,44 @@
     </tbody>
 </table>
 <br>
-<footer>
-    <table cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-            <td width="40%"><br></td>
-            <td width="20%"></td>
-            <td width="40%">Kutowinangun, <?php
-                        $tanggal = date('d');
-                        $bulan = date('m');
-                        $tahun = date('Y');
-                        echo $tanggal.' '.getBulan($bulan).' '.$tahun;
-                        ?><br>Bagian Administrasi
-            </td>
-        </tr>
-        <tr>
-            <td width="40%"></td>
-            <td width="20%"></td>
-            <td width="40%">
-                <?php
-                if($this->session->userdata('level') != 'ks')
+<table cellspacing="0" cellpadding="3" width="100%">
+    <tr>
+        <td width="40%"><br></td>
+        <td width="20%"></td>
+        <td width="40%">Kutowinangun, <?php
+                    $tanggal = date('d');
+                    $bulan = date('m');
+                    $tahun = date('Y');
+                    echo $tanggal.' '.getBulan($bulan).' '.$tahun;
+                    ?><br>Bagian Administrasi
+        </td>
+    </tr>
+    <tr>
+        <td width="40%"></td>
+        <td width="20%"></td>
+        <td width="40%">
+            <?php
+            if($this->session->userdata('level') != 'ks')
+            {
+                $ttd = ttd($this->session->userdata('id_user'));
+                if( !empty($ttd) AND file_exists("assets/img/ttd/$ttd") )
+                { 
+                    echo'<img src="'.base_url("assets/img/ttd/$ttd").'" width="70">
+                        <br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
+                }else
                 {
-                    $ttd = ttd($this->session->userdata('id_user'));
-                    if( !empty($ttd) AND file_exists("assets/img/ttd/$ttd") )
-                    { 
-                        echo'<img src="assets/img/ttd/'.$ttd.'" width="70">
-                            <br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
-                    }else
-                    {
-                        echo'<br><br><br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
-                    }
+                    echo'<br><br><br><b><u>'.nama_user($this->session->userdata('id_user')).'</u></b>';
+                }
 
-                    if( !empty(nip($this->session->userdata('id_user'))) )
-                    {
-                        echo '<br>NIP. '.nip($this->session->userdata('id_user'));
-                    }
-                }  
-                ?>
-            </td>
-        </tr>
-    </table>
-</footer>
+                if( !empty(nip($this->session->userdata('id_user'))) )
+                {
+                    echo '<br>NIP. '.nip($this->session->userdata('id_user'));
+                }
+            }  
+            ?>
+        </td>
+    </tr>
+</table>
+<script>
+    window.print();
+</script>

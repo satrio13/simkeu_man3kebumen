@@ -35,14 +35,14 @@
                 <?php echo form_open('backend/tambah-tagihan','id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">NAMA TAGIHAN *</label>
+                        <label class="col-sm-2 col-form-label">NAMA TAGIHAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <input type="text" name="tagihan" value="<?= set_value('tagihan'); ?>" maxlength="30" class="form-control required" placeholder="NAMA TAGIHAN">
                             <?php echo form_error('tagihan'); ?>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">JENIS TAGIHAN *</label>
+                        <label class="col-sm-2 col-form-label">JENIS TAGIHAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <select name="id_jenistagihan" class="form-control required">
                                 <?php foreach($jenistagihan as $r): ?>
@@ -53,9 +53,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>
-                        </div>
+                      <div class="offset-sm-2 col-sm-10">
+                        <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
+                      </div>
                     </div>
                 </div>
                 <div class="card-footer">

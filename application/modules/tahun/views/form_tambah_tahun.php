@@ -35,7 +35,7 @@
                 <?php echo form_open('backend/tambah-tahun','id="form"'); ?>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">TAHUN PELAJARAN *</label>
+                        <label class="col-sm-2 col-form-label">TAHUN PELAJARAN <span class="text-danger">*</span></label>
                         <div class="col-sm-5">
                             <input type="text" name="tahunpelajaran" maxlength="10" value="<?= set_value('tahunpelajaran'); ?>" class="form-control required" placeholder="TAHUN PELAJARAN">
                             <?php echo form_error('tahunpelajaran'); ?> 
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <label class="form-check-label" for="exampleCheck2">*) Field Wajib Diisi</label>  
+                          <span class="text-danger"><b>*</b></span>) Field Wajib Diisi
                         </div>
                     </div>
                 </div>

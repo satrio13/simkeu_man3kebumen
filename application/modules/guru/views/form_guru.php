@@ -41,13 +41,14 @@
                   <div class="form-group row">
                     <div class="col-sm-7">
                     <?php
-                    if(isset($_POST['preview'])){ // Jika user menekan tombol Preview pada form
-                      if(isset($upload_error)){ // Jika proses upload gagal
-                        echo '<div class="alert alert-danger alert-message">
-                                TYPE FILE YANG ANDA UNGGAH TIDAK SESUAI!
-                              </div>'; // Muncul pesan error upload
+                    if(isset($_POST['preview']))
+                    { 
+                      if($upload_error)
+                      { 
+                        echo'<div class="alert alert-danger alert-message">'.$upload_error.'</div>';
                       }
-                    } ?>
+                    } 
+                    ?>
                     </div>
                   </div>
                   <div class="form-group row">

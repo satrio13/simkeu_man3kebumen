@@ -223,13 +223,12 @@ class Guru extends CI_Controller {
 					));
 				}
 			  }
-			  $numrow++; // Tambah 1 setiap kali looping
+			  $numrow++; 
 			}
 	  
-			// Panggil fungsi insert_multiple yg telah kita buat sebelumnya di model
 			$this->import_guru_model->insert_multiple($data);
 			$this->session->set_flashdata('msg-guru', 'DATA BERHASIL DIIMPORT');
-			redirect("backend/guru"); // Redirect ke halaman awal (ke controller siswa fungsi index)
+			redirect("backend/guru"); 
 		  }else{
 			redirect("backend/guru");
 		  }

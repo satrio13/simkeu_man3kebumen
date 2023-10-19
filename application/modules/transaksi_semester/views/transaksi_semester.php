@@ -39,7 +39,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-striped" id="table-transaksi-semester">
+                        <table class="table table-bordered table-striped table-sm" id="table-transaksi-semester">
                             <thead class="bg-secondary text-center">
                                 <tr>
                                     <th width="5%" nowrap>NO</th>
@@ -62,7 +62,7 @@
 </section>
 </div>
 
-<div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">

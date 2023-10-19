@@ -135,12 +135,12 @@
                         </td>
                         <td class="text-right">
                             <a href="<?= base_url(); ?>backend/cetak-laporan-riwayat-pdf/<?= $id_tahunpelajaran; ?>/<?= $tingkatan; ?>/<?= $id_tagihan; ?>/<?= $tgl_awal; ?>/<?= $tgl_akhir; ?>" target="_blank" class="btn btn-flat bg-navy"><i class="fa fa-file-pdf"></i> CETAK PDF</a>
-                            <a href="<?= base_url(); ?>backend/cetak-laporan-riwayat/<?= $id_tahunpelajaran; ?>/<?= $tingkatan; ?>/<?= $id_tagihan; ?>/<?= $tgl_awal; ?>/<?= $tgl_akhir; ?>" target="_blank" class="btn btn-flat bg-primary"><i class="fa fa-print"></i> CETAK BIASA</a>
+                            <a href="<?= base_url(); ?>backend/cetak-laporan-riwayat/<?= $id_tahunpelajaran; ?>/<?= $tingkatan; ?>/<?= $id_tagihan; ?>/<?= $tgl_awal; ?>/<?= $tgl_akhir; ?>" target="_blank" class="btn btn-flat bg-primary"><i class="fa fa-print"></i> CETAK</a>
                             <a href="<?= base_url(); ?>backend/cetak-laporan-riwayat-excel/<?= $id_tahunpelajaran; ?>/<?= $tingkatan; ?>/<?= $id_tagihan; ?>/<?= $tgl_awal; ?>/<?= $tgl_akhir; ?>" target="_blank" class="btn btn-flat bg-olive"><i class="fa fa-file-pdf"></i> CETAK EXCEL</a>
                         </td>
                     </tr>
                 </table>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped table-sm">
                     <thead class="bg-secondary text-center">
                         <tr>
                             <th width="5%" nowrap>NO</th>
@@ -149,6 +149,7 @@
                             <th nowrap>NIS</th>
                             <th nowrap>NAMA</th>
                             <th nowrap>KELAS</th>
+                            <th nowrap>GUNA MEMBAYAR</th>
                             <th nowrap>KETERANGAN</th>
                             <th nowrap>PETUGAS</th>
                         </tr>
@@ -158,7 +159,6 @@
                     $no = 1; 
                     $jml_setoran = 0;
                     foreach($riwayat->result() as $r): 
-
                         $id_tahunpelajaran = id_tahunpelajaran_pemb($r->id_tagihan_tahunan);
                         $tahun = tahun($id_tahunpelajaran);
                         //$kelas = kelas_lap($r->id_siswa,$id_tahunpelajaran);
@@ -214,13 +214,14 @@
                         <td><?= $r->nama; ?></td>
                         <td><?= $r->kelas; ?></td>
                         <td><?= $keterangan; ?></td>
+                        <td><?= $r->catatan; ?></td>
                         <td><?= $r->nama_petugas; ?></td>
                     </tr>
                     <?php endforeach; ?>
                     <tr>
                         <td class="text-bold" colspan="2">JUMLAH SETORAN</td>
                         <td class="text-right text-bold"><?= number_format($jml_setoran, 0, ',', '.'); ?></td>
-                        <td colspan="5"></td>
+                        <td colspan="6"></td>
                     </tr>
                   </tbody>
                 </table>

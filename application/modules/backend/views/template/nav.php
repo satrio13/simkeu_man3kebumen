@@ -121,7 +121,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="<?= base_url('backend/guru'); ?>" class="<?php if($this->uri->segment('2') == 'guru' OR $this->uri->segment('2') == 'tambah-guru' OR $this->uri->segment('2') == 'edit-guru' OR $this->uri->segment('2') == 'form-guru') { echo 'nav-link active'; }else{ echo 'nav-link'; } ?>">
+              <a href="<?= base_url('backend/guru'); ?>" class="<?php if($this->uri->segment('2') == 'guru' OR $this->uri->segment('2') == 'tambah-guru' OR $this->uri->segment('2') == 'edit-guru' OR $this->uri->segment('2') == 'form-guru' OR $this->uri->segment('2') == 'guru-batch') { echo 'nav-link active'; }else{ echo 'nav-link'; } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <small>GURU</small>
               </a>
@@ -135,7 +135,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="<?= base_url('backend/siswa'); ?>" class="<?php if($this->uri->segment('2') == 'siswa' OR $this->uri->segment('2') == 'tambah-siswa' OR $this->uri->segment('2') == 'edit-siswa' OR $this->uri->segment('2') == 'form-siswa') { echo 'nav-link active'; }else{ echo 'nav-link'; } ?>">
+              <a href="<?= base_url('backend/siswa'); ?>" class="<?php if($this->uri->segment('2') == 'siswa' OR $this->uri->segment('2') == 'tambah-siswa' OR $this->uri->segment('2') == 'edit-siswa' OR $this->uri->segment('2') == 'form-siswa' OR $this->uri->segment('2') == 'siswa-batch') { echo 'nav-link active'; }else{ echo 'nav-link'; } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <small>SISWA</small>
               </a>

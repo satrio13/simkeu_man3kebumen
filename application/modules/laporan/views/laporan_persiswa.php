@@ -63,7 +63,7 @@
                             </tr>
                         </table>
                     <?php } ?>
-                    <table class="table table-bordered table-striped" id="datatable">
+                    <table class="table table-bordered table-striped table-sm" id="datatable">
                         <thead class="bg-secondary text-center">
                             <tr>
                                 <th width="5%">NO</th>
@@ -84,7 +84,10 @@
                                         <td class="text-center">'.$no++.'</td>
                                         <td>'.$r->nis.'</td>
                                         <td>'.$r->nama.'</td>
-                                        <td class="text-center"><a href="'.base_url("backend/cetak-laporan-persiswa/$r->id_siswa").'" target="_blank" class="btn bg-info btn-flat btn-sm text-bold"><i class="fa fa-eye"></i> LIHAT DETAIL</a></td>
+                                        <td class="text-center">
+                                            <a href="'.base_url("backend/cetak-laporan-persiswa-pdf/$r->id_siswa").'" target="_blank" class="btn bg-navy btn-flat btn-xs text-bold"><i class="fa fa-file-pdf"></i> CETAK PDF</a>
+                                            <a href="'.base_url("backend/cetak-laporan-persiswa/$r->id_siswa").'" target="_blank" class="btn bg-info btn-flat btn-xs text-bold"><i class="fa fa-file-pdf"></i> CETAK</a>    
+                                        </td>
                                     </tr>';
                                 endforeach;
                             }else

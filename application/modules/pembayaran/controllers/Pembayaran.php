@@ -102,12 +102,11 @@ class Pembayaran extends CI_Controller {
 
 			if($r->id_user == $this->session->userdata('id_user'))
 			{
-				$aksi = '<a href="javascript:void(0)" class="btn btn-danger btn-xs btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-pembayaran/$r->id_pembayaran").'" title="HAPUS DATA">HAPUS</a>
-						<a href="'.base_url("backend/cetak-slip/$r->id_pembayaran").'" target="_blank" class="btn btn-primary btn-xs btn-flat" title="CETAK PDF">CETAK</a>';
+				$aksi = '<a href="'.base_url("backend/cetak-slip/$r->id_pembayaran").'" target="_blank" class="btn btn-primary btn-xs btn-flat" title="CETAK PDF"><i class="fa fa-print"></i> CETAK</a>
+				<a href="javascript:void(0)" class="btn btn-danger btn-xs btn-flat text-white" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="'.base_url("backend/hapus-pembayaran/$r->id_pembayaran").'" title="HAPUS DATA"><i class="fa fa-trash"></i> HAPUS</a>';
 			}else
 			{
-				$aksi = '<button class="btn btn-danger btn-xs btn-flat disabled">HAPUS</button>
-						<a href="'.base_url("backend/cetak-slip/$r->id_pembayaran").'" target="_blank" class="btn btn-primary btn-xs btn-flat" title="CETAK PDF">CETAK</a>';
+				$aksi = '<a href="'.base_url("backend/cetak-slip/$r->id_pembayaran").'" target="_blank" class="btn btn-primary btn-xs btn-flat" title="CETAK PDF"><i class="fa fa-print"></i> CETAK</a><button class="btn btn-danger btn-xs btn-flat disabled"><i class="fa fa-trash"></i> HAPUS</button>';
 			}
 
 			$no++;
@@ -119,6 +118,7 @@ class Pembayaran extends CI_Controller {
 			$row[] = $r->nama;
 			$row[] = $kelas;
 			$row[] = $keterangan;
+			$row[] = $r->catatan;
 			$row[] = $r->nama_petugas;
 			$action = '<div class="text-center">'.$aksi.'</div>';
 			$row[] = $action;
@@ -189,6 +189,7 @@ class Pembayaran extends CI_Controller {
 			$submit = $this->input->post('submit', TRUE);
 			$kurang = $this->input->post('kurang', TRUE);
 			$bayar = $this->input->post('bayar', TRUE) + $this->input->post('daritabungan', TRUE);
+			$catatan = $this->input->post('keterangan', TRUE);
 			if( isset($submit) AND is_numeric($bayar) )
 			{   
 				$id_tagihan_tahunan = strip_tags($this->input->post('id_tagihan_tahunan',TRUE));
@@ -263,7 +264,7 @@ class Pembayaran extends CI_Controller {
 								$keterangan = 'Membayar '.$tagihan.' ( TP '.$tahun.' )';
 							}
 
-							$this->pembayaran_model->bayar($id_siswa,$id_tagihan_tahunan,$id_semester,$id_bulan,$bayar,$tgl,$status,$id_user,$tabungan,$keterangan);
+							$this->pembayaran_model->bayar($id_siswa,$id_tagihan_tahunan,$id_semester,$id_bulan,$bayar,$tgl,$status,$id_user,$tabungan,$keterangan,$catatan);
                             if($this->db->trans_status() === TRUE)
                             {
 								$this->session->set_flashdata('msg-bayar', 'BERHASIL DIBAYARKAN');
@@ -309,7 +310,7 @@ class Pembayaran extends CI_Controller {
 		}
 	}
 
-	function cetak_riwayat($nis)
+	function cetak_riwayat_pdf($nis)
 	{
 		$cek = $this->pembayaran_model->cek_nis($nis);
 		if(!$cek)
@@ -321,13 +322,28 @@ class Pembayaran extends CI_Controller {
 			$id_siswa = nis_to_id($nis);
 			$data['siswa'] = siswa_sekarang($id_siswa);
 			$data['data'] = $this->pembayaran_model->riwayat($id_siswa);
-			$html = $this->load->view('pembayaran/cetak_riwayat', $data, true);
+			$html = $this->load->view('pembayaran/cetak_riwayat_pdf', $data, true);
 			$filename = 'cetak-riwayat-pembayaran';
 			$this->pdfgenerator->generate($html, $filename, TRUE, 'A4', 'portrait');	
 		}
 	}
 
-	function cetak_slip($id)
+	function cetak_riwayat($nis)
+	{
+		$cek = $this->pembayaran_model->cek_nis($nis);
+		if(!$cek)
+		{
+			show_404();
+		}else
+		{
+			$id_siswa = nis_to_id($nis);
+			$data['siswa'] = siswa_sekarang($id_siswa);
+			$data['data'] = $this->pembayaran_model->riwayat($id_siswa);
+			$this->load->view('pembayaran/cetak_riwayat', $data);	
+		}
+	}
+
+	function cetak_slip_pdf($id)
 	{
 		$cek = $this->pembayaran_model->cek_pembayaran($id);
 		if(!$cek)
@@ -341,9 +357,26 @@ class Pembayaran extends CI_Controller {
 			$data['siswa'] = siswa_sekarang($id_siswa);
 			$data['tgl'] = $tgl;
 			$data['data'] = $this->pembayaran_model->slip($id_siswa,$tgl);
-			$html = $this->load->view('pembayaran/cetak_slip', $data, true);
+			$html = $this->load->view('pembayaran/cetak_slip_pdf', $data, true);
 			$filename = 'cetak-slip-pembayaran';
 			$this->pdfgenerator->generate($html, $filename, TRUE, 'A4', 'portrait');	
+		}
+	}
+
+	function cetak_slip($id)
+	{
+		$cek = $this->pembayaran_model->cek_pembayaran($id);
+		if(!$cek)
+		{
+			show_404();
+		}else
+		{
+			$id_siswa = id_siswa_pemb($id);
+			$tgl = tgl_pemb($id);
+			$data['siswa'] = siswa_sekarang($id_siswa);
+			$data['tgl'] = $tgl;
+			$data['data'] = $this->pembayaran_model->slip($id_siswa,$tgl);
+			$this->load->view('pembayaran/cetak_slip', $data);
 		}
 	}
 
