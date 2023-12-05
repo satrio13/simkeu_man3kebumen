@@ -1,11 +1,5 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $jurusan = $this->input->post('jurusan', TRUE);
-}else
-{
-  $jurusan = $data->jurusan;
-}
+$jurusan = isset($_POST['submit']) ? $this->input->post('jurusan', TRUE) : $data->jurusan;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
