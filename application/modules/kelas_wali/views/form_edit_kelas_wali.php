@@ -1,15 +1,7 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $id_tahunpelajaran = $this->input->post('id_tahunpelajaran', TRUE);
-  $id_kelas = $this->input->post('id_kelas', TRUE);
-  $id_guru = $this->input->post('id_guru', TRUE);
-}else
-{
-  $id_tahunpelajaran = $data->id_tahunpelajaran;
-  $id_kelas = $data->id_kelas;
-  $id_guru = $data->id_guru;
-}
+$id_tahunpelajaran = isset($_POST['submit']) ? $this->input->post('id_tahunpelajaran', TRUE) : $data->id_tahunpelajaran;
+$id_kelas = isset($_POST['submit']) ? $this->input->post('id_kelas', TRUE) : $data->id_kelas;
+$id_guru = isset($_POST['submit']) ? $this->input->post('id_guru', TRUE) : $data->id_guru;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
