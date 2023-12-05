@@ -1,31 +1,15 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $id_tahunpelajaran = $this->input->post('id_tahunpelajaran', TRUE);
-  $id_tagihan = $this->input->post('id_tagihan', TRUE);
-  $id_semester = $this->input->post('id_semester', TRUE);
-  $perangkatan = $this->input->post('perangkatan', TRUE);
-  $perangkatan_bsm = $this->input->post('perangkatan_bsm', TRUE);
-  $kelas10 = $this->input->post('kelas10', TRUE);
-  $kelas10_bsm = $this->input->post('kelas10_bsm', TRUE);
-  $kelas11 = $this->input->post('kelas11', TRUE);
-  $kelas11_bsm = $this->input->post('kelas11_bsm', TRUE);
-  $kelas12 = $this->input->post('kelas12', TRUE);
-  $kelas12_bsm = $this->input->post('kelas12_bsm', TRUE);
-}else
-{
-  $id_tahunpelajaran = $data->id_tahunpelajaran;
-  $id_tagihan = $data->id_tagihan;
-  $id_semester = $data->id_semester;
-  $perangkatan = $data->perangkatan;
-  $perangkatan_bsm = $data->perangkatan_bsm;
-  $kelas10 = $data->kelas10;
-  $kelas10_bsm = $data->kelas10_bsm;
-  $kelas11 = $data->kelas11;
-  $kelas11_bsm = $data->kelas11_bsm;
-  $kelas12 = $data->kelas12;
-  $kelas12_bsm = $data->kelas12_bsm;
-}
+$id_tahunpelajaran = isset($_POST['submit']) ? $this->input->post('id_tahunpelajaran', TRUE) : $data->id_tahunpelajaran;
+$id_tagihan = isset($_POST['submit']) ? $this->input->post('id_tagihan', TRUE) : $data->id_tagihan;
+$id_semester = isset($_POST['submit']) ? $this->input->post('id_semester', TRUE) : $data->id_semester;
+$perangkatan = isset($_POST['submit']) ? $this->input->post('perangkatan', TRUE) : $data->perangkatan;
+$perangkatan_bsm = isset($_POST['submit']) ? $this->input->post('perangkatan_bsm', TRUE) : $data->perangkatan_bsm;
+$kelas10 = isset($_POST['submit']) ? $this->input->post('kelas10', TRUE) : $data->kelas10;
+$kelas10_bsm = isset($_POST['submit']) ? $this->input->post('kelas10_bsm', TRUE) : $data->kelas10_bsm;
+$kelas11 = isset($_POST['submit']) ? $this->input->post('kelas11', TRUE) : $data->kelas11;
+$kelas11_bsm = isset($_POST['submit']) ? $this->input->post('kelas11_bsm', TRUE) : $data->kelas11_bsm;
+$kelas12 = isset($_POST['submit']) ? $this->input->post('kelas12', TRUE) : $data->kelas12;
+$kelas12_bsm = isset($_POST['submit']) ? $this->input->post('kelas12_bsm', TRUE) : $data->kelas12_bsm;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
