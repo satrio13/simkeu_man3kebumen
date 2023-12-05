@@ -1,13 +1,6 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $nama = $this->input->post('nama', TRUE);
-  $nis = $this->input->post('nis', TRUE);
-}else
-{
-  $nama = $data->nama;
-  $nis = $data->nis;
-}
+$nama = isset($_POST['submit']) ? $this->input->post('nama', TRUE) : $data->nama;
+$nis = isset($_POST['submit']) ? $this->input->post('nis', TRUE) : $data->nis;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
