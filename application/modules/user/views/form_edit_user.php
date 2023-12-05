@@ -1,19 +1,9 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $nama = $this->input->post('nama', TRUE);
-  $nip = $this->input->post('nip', TRUE);
-  $username = $this->input->post('username', TRUE);
-  $email = $this->input->post('email', TRUE);
-  $is_active = $this->input->post('is_active', TRUE);
-}else
-{
-  $nama = $data->nama;
-  $nip = $data->nip;
-  $username = $data->username;
-  $email = $data->email;
-  $is_active = $data->is_active;
-}
+$nama = isset($_POST['submit']) ? $this->input->post('nama', TRUE) : $data->nama;
+$nip = isset($_POST['submit']) ? $this->input->post('nip', TRUE) : $data->nip;
+$username = isset($_POST['submit']) ? $this->input->post('username', TRUE) : $data->username;
+$email = isset($_POST['submit']) ? $this->input->post('email', TRUE) : $data->email;
+$is_active = isset($_POST['submit']) ? $this->input->post('is_active', TRUE) : $data->is_active;
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
