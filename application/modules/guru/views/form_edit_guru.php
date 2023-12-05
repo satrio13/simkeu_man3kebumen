@@ -1,11 +1,5 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $nama = $this->input->post('nama', TRUE);
-}else
-{
-  $nama = $data->nama;
-}
+$nama = isset($_POST['submit']) ? $this->input->post('nama', TRUE) : $data->nama;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
