@@ -1,13 +1,6 @@
 <?php
-if(isset($_POST['submit']))
-{
-  $tagihan = $this->input->post('tagihan', TRUE);
-  $id_jenistagihan = $this->input->post('id_jenistagihan', TRUE);
-}else
-{
-  $tagihan = $data->tagihan;
-  $id_jenistagihan = $data->id_jenistagihan;
-}
+$tagihan = isset($_POST['submit']) ? $this->input->post('tagihan', TRUE) : $data->tagihan;
+$id_jenistagihan = isset($_POST['submit']) ? $this->input->post('id_jenistagihan', TRUE) : $data->id_jenistagihan;
 ?>
 <div class="content-wrapper">
   <div class="content-header">
