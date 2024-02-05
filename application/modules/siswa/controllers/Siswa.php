@@ -208,11 +208,24 @@ class Siswa extends CI_Controller {
 			$loadexcel = $excelreader->load('excel/siswa/'.$this->filename.'-'.$this->session->userdata('id_user').'.xlsx'); // Load file yang tadi diupload ke folder excel
 			$sheet = $loadexcel->getActiveSheet()->toArray(null, true, true ,true);
 			
+			// Array baru untuk menyimpan data unik berdasarkan 'nis'
+			$uniqueData = [];
+			// Loop melalui data yang diberikan
+			foreach($sheet as $item)
+			{
+				// Gunakan 'nis' sebagai kunci array
+				$nis = $item['B'];
+				// Jika 'nis' belum ada dalam array $uniqueData, tambahkan data tersebut
+				if(!isset($uniqueData[$nis]))
+				{
+					$uniqueData[$nis] = $item;
+				}
+			}
+
 			// Buat sebuah variabel array untuk menampung array data yg akan kita insert ke database
 			$data = array();
-			
 			$numrow = 1;
-			foreach($sheet as $row){
+			foreach($uniqueData as $row){
 			  // Cek $numrow apakah lebih dari 1
 			  // Artinya karena baris pertama adalah nama-nama kolom
 			  // Jadi dilewat saja, tidak usah diimport
