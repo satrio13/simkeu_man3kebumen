@@ -95,7 +95,24 @@ if(isset($_POST['preview']))
             $kosong = 0;
             $cek_id = 0;
             $no=1;
-            foreach($sheet as $row)
+
+            // Array baru untuk menyimpan data unik berdasarkan 'nis'
+            $uniqueData = [];
+            // Loop melalui data yang diberikan
+            foreach($sheet as $item)
+            {
+              // Gunakan 'nis' sebagai kunci array
+              $nis = $item['B'];
+              // Jika 'nis' belum ada dalam array $uniqueData, tambahkan data tersebut
+              if(!isset($uniqueData[$nis]))
+              {
+                $uniqueData[$nis] = $item;
+              }
+            }
+
+            // Ubah kembali array asosiatif menjadi indeks numerik
+            $uniqueData = array_values($uniqueData);
+            foreach($uniqueData as $row)
             {
               $nama = $row['A'];
               $nis = $row['B'];
